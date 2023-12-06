@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locker_repository/user_repository.dart';
 import 'package:lockers_app_blocs/blocs/locker/get_lockers_bloc/get_lockers_bloc.dart';
 import 'package:lockers_app_blocs/blocs/locker/update_locker_bloc/update_locker_bloc.dart';
+import 'package:lockers_app_blocs/components/ceff_elevated_button.dart';
 import 'package:lockers_app_blocs/screens/core/widgets/drop_down_menu.dart';
 
 class LockerUpdate extends StatefulWidget {
@@ -59,6 +60,13 @@ class _LockerUpdateState extends State<LockerUpdate> {
         listener: (context, state) {
           if (state is UpdateLockerSuccess) {
             context.read<GetLockersBloc>().add(GetLockers());
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                    "Le casier n°${widget.locker.lockerNumber}  a été modifié avec succès !"),
+                duration: const Duration(seconds: 3),
+              ),
+            );
           }
         },
         child: Form(
@@ -198,28 +206,21 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.black54),
-                        ),
+                      child: CEFFElevatedButton(
+                        "Annuler",
                         onPressed: widget.locker.isInaccessible == true
                             ? null
                             : () {
                                 widget.showUpdateForm!();
                               },
-                        child: const Text("Annuler"),
                       ),
                     ),
                   ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.black54),
-                        ),
+                      child: CEFFElevatedButton(
+                        "Enregistrer",
                         onPressed: widget.locker.isInaccessible == true
                             ? null
                             : () async {
@@ -243,61 +244,8 @@ class _LockerUpdateState extends State<LockerUpdate> {
                                   context
                                       .read<UpdateLockerBloc>()
                                       .add(UpdateLocker(locker));
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          "Le casier n°${widget.locker.lockerNumber}  a été modifié avec succès !"),
-                                      duration: const Duration(seconds: 3),
-                                    ),
-                                  );
                                 }
-                                // if (_formKey.currentState!.validate()) {
-                                //   Locker locker =
-                                //       Provider.of<LockerStudentProvider>(context,
-                                //               listen: false)
-                                //           .getLocker(widget.locker.id!);
-
-                                //   await Provider.of<LockerStudentProvider>(
-                                //           context,
-                                //           listen: false)
-                                //       .updateLocker(locker.copyWith(
-                                //     lockerNumber:
-                                //         int.parse(lockerNumberController.text),
-                                //     lockNumber:
-                                //         int.parse(lockNumberController.text),
-                                //     nbKey: int.parse(nbKeyController.text),
-                                //     floor: floorController.text,
-                                //     job: jobController.text,
-                                //     remark: remarkController.text,
-                                //     isDefective:
-                                //         int.parse(nbKeyController.text) != 0 ||
-                                //                 remarkController.text == ""
-                                //             ? false
-                                //             : true,
-                                //   ));
-
-                                //   Provider.of<HistoryProvider>(context,
-                                //           listen: false)
-                                //       .addHistory(History(
-                                //     date: DateTime.now().toString(),
-                                //     action: "update",
-                                //     locker: locker.toJson(),
-                                //   ));
-
-                                //   widget.updateSearchLockerList!();
-
-                                //   widget.showUpdateForm!();
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //     SnackBar(
-                                //       content: Text(
-                                //           "Le casier n°${widget.locker.lockerNumber}  a été modifié avec succès !"),
-                                //       duration: const Duration(seconds: 3),
-                                //     ),
-                                //   );
-                                // }
                               },
-                        child: const Text("Enregistrer"),
                       ),
                     ),
                   ),
@@ -310,13 +258,13 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.all(20),
                         child: TextField(
                           readOnly: true,
                           enableInteractiveSelection: false,
                           decoration: InputDecoration(
                             // hintText: "${student.firstName} ${student.lastName}",
-                            prefixIcon: const Icon(Icons.people_alt_outlined),
+                            prefixIcon: Icon(Icons.people_alt_outlined),
                           ),
                         ),
                       ),
