@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "653882674009",
+    "firebase_url": "https://lockers-app-40f8d-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "lockers-app-40f8d",
+    "storage_bucket": "lockers-app-40f8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653882674009:android:5567f4a1b96567ed46da48",
+        "android_client_info": {
+          "package_name": "ch.lockers.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653882674009-ugrl5t91s8com786iveqrklaucpj5ah3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJsZnxuPejOLFZaYF8fOEA79VP0fzES4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653882674009-ugrl5t91s8com786iveqrklaucpj5ah3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "653882674009-i2ve4puff056vqna7ntkqos7gpg1tteg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.lockersApp.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653882674009:android:5a20c42a9f02870746da48",
+        "android_client_info": {
+          "package_name": "com.example.lockers_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653882674009-ugrl5t91s8com786iveqrklaucpj5ah3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJsZnxuPejOLFZaYF8fOEA79VP0fzES4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653882674009-ugrl5t91s8com786iveqrklaucpj5ah3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "653882674009-i2ve4puff056vqna7ntkqos7gpg1tteg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.lockersApp.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653882674009:android:7cb33fc3e06246c746da48",
+        "android_client_info": {
+          "package_name": "com.example.lockers_app_blocs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653882674009-ugrl5t91s8com786iveqrklaucpj5ah3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJsZnxuPejOLFZaYF8fOEA79VP0fzES4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653882674009-ugrl5t91s8com786iveqrklaucpj5ah3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "653882674009-i2ve4puff056vqna7ntkqos7gpg1tteg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.lockersApp.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

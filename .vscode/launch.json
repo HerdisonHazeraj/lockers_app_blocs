@@ -1,0 +1,105 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "lockers_app_blocs",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "lockers_app_blocs (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "lockers_app_blocs (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "historic_repository",
+            "cwd": "packages\\historic_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "historic_repository (profile mode)",
+            "cwd": "packages\\historic_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "historic_repository (release mode)",
+            "cwd": "packages\\historic_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "locker_repository",
+            "cwd": "packages\\locker_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "locker_repository (profile mode)",
+            "cwd": "packages\\locker_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "locker_repository (release mode)",
+            "cwd": "packages\\locker_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "student_repository",
+            "cwd": "packages\\student_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "student_repository (profile mode)",
+            "cwd": "packages\\student_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "student_repository (release mode)",
+            "cwd": "packages\\student_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "user_repository",
+            "cwd": "packages\\user_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "user_repository (profile mode)",
+            "cwd": "packages\\user_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "user_repository (release mode)",
+            "cwd": "packages\\user_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
