@@ -11,12 +11,12 @@ Version 0.10.23
 29.11.2023 : Mise en place de l'authentification (0.11.23) :
 
 - ./packages : Création de tous les repository utilisables dans l'application
-- ./packages/user_repository : Système d'authentification fonctionnel !
+  - ./packages/user_repository : Système d'authentification fonctionnel !
 - ./lib : Création des "Bloc" ainsi que l'affichage
-- ./lib/screens : Suppression de toutes les pages pour les recréer petit à petit
-- ./lib/authentification : Affichage de l'authentification fonctionnel !
-- ./lib/dashboard : Affichage fonctionnel mais les données sont brutes pour l'instant
-- ./lib/blocs : Création des "Bloc" dont nous avons besoin pour gérer les états
-- ./lib/blocs/user : Gestion de l'authentification fonctionnel !
+  - ./lib/screens : Suppression de toutes les pages pour les recréer petit à petit
+    - ./lib/screens/authentification : Affichage de l'authentification fonctionnel !
+    - ./lib/screens/dashboard : Affichage fonctionnel mais les données sont brutes pour l'instant
+  - ./lib/blocs : Création des "Bloc" dont nous avons besoin pour gérer les états
+    - ./lib/blocs/user : Gestion de l'authentification fonctionnel !
 
-  30.11.2023 :
+30.11.2023 :
