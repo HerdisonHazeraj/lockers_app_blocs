@@ -4,6 +4,7 @@ class CEFFDropdownField extends StatelessWidget {
   const CEFFDropdownField(
     this.label,
     this.items, {
+    this.choosedItem,
     this.icon,
     this.iconSize = 24,
     this.onChanged,
@@ -12,10 +13,11 @@ class CEFFDropdownField extends StatelessWidget {
     super.key,
   });
   final String label;
+  final String? choosedItem;
   final Map<String, String> items;
   final IconData? icon;
   final int iconSize;
-  final VoidCallback? onChanged;
+  final Function(String?)? onChanged;
   final bool enabled;
   final InputBorder? border;
 
@@ -39,7 +41,11 @@ class CEFFDropdownField extends StatelessWidget {
               )
             : null,
       ),
-      hint: Text(label),
+      value: choosedItem,
+      hint: Text(
+        label,
+        style: const TextStyle(color: Colors.black),
+      ),
       iconSize: 36,
       icon: const Icon(
         Icons.arrow_drop_down_outlined,

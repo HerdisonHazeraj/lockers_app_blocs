@@ -1,5 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app_blocs/components/ceff_elevated_button.dart';
+import 'package:lockers_app_blocs/components/ceff_text_field.dart';
+import 'package:lockers_app_blocs/components/ceff_titlemenu_text.dart';
 
 class ImportAllMenu extends StatefulWidget {
   ImportAllMenu({super.key});
@@ -10,25 +13,17 @@ class ImportAllMenu extends StatefulWidget {
 }
 
 class _ImportAllMenuState extends State<ImportAllMenu> {
-  // Controllers for the importing student form
   final fileController = TextEditingController();
-
   late FilePickerResult? pickedFile;
 
   @override
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        SizedBox(
+        const SizedBox(
           width: double.infinity,
-          child: Text(
+          child: CEFFTitleMenuText(
             "Importer un fichier CSV",
-            style: TextStyle(
-              fontSize: 18,
-              color: Theme.of(context).textSelectionTheme.selectionColor,
-              fontWeight: FontWeight.w500,
-              height: 1.3,
-            ),
           ),
         ),
         Row(
@@ -36,12 +31,10 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-              child: TextField(
+              child: CEFFTextField(
+                "Choisir...",
+                const Icon(Icons.file_upload_rounded),
                 controller: fileController,
-                decoration: InputDecoration(
-                  labelText: "Choisir...",
-                  prefixIcon: Icon(Icons.file_upload_outlined),
-                ),
                 readOnly: true,
                 onTap: () async {
                   pickedFile = (await FilePicker.platform.pickFiles(
@@ -54,17 +47,6 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
                   if (pickedFile != null) {
                     fileController.text = pickedFile!.files.single.name;
                   }
-
-                  // pickedFile = (await FilePicker.platform.pickFiles(
-                  //   type: FileType.custom,
-                  //   allowedExtensions: ['xlsx'],
-                  //   withData: true,
-                  //   allowMultiple: false,
-                  // ));
-
-                  // if (pickedFile != null) {
-                  //   fileController.text = pickedFile!.files.single.name;
-                  // }
                 },
               ),
             ),
@@ -72,7 +54,8 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
               width: 40,
             ),
             Expanded(
-              child: ElevatedButton(
+              child: CEFFElevatedButton(
+                "Importer",
                 onPressed: () async {
                   // écrire la méthode
                   // final error = await Provider.of<LockerStudentProvider>(
@@ -104,7 +87,6 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
                   //   ),
                   // );
                 },
-                child: const Text("Importer"),
               ),
             ),
           ],

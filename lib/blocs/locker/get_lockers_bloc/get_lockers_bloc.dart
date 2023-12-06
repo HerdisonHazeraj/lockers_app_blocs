@@ -16,7 +16,7 @@ class GetLockersBloc extends Bloc<GetLockersEvent, GetLockersState> {
         List<Locker> lockers = await lockerRepository.getLockers();
         emit(GetLockersSuccess(lockers));
       } catch (e) {
-        emit(GetLockersFailure());
+        emit(GetLockersFailure(e.toString()));
       }
     });
   }

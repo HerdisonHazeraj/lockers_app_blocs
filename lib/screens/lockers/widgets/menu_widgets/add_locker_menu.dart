@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locker_repository/user_repository.dart';
 import 'package:lockers_app_blocs/blocs/locker/create_locker_bloc/create_locker_bloc.dart';
 import 'package:lockers_app_blocs/blocs/locker/get_lockers_bloc/get_lockers_bloc.dart';
-import 'package:lockers_app_blocs/screens/core/widgets/drop_down_menu.dart';
+import 'package:lockers_app_blocs/components/ceff_dropdown_field.dart';
+import 'package:lockers_app_blocs/components/ceff_elevated_button.dart';
+import 'package:lockers_app_blocs/components/ceff_text_field.dart';
+import 'package:lockers_app_blocs/components/ceff_titlemenu_text.dart';
 
 class AddLockerMenu extends StatefulWidget {
   const AddLockerMenu({super.key});
@@ -46,20 +49,21 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
       children: [
         const SizedBox(
           width: double.infinity,
-          child: Text(
+          child: CEFFTitleMenuText(
             "Ajouter un casier",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black54,
-              fontWeight: FontWeight.w500,
-              height: 1.3,
-            ),
           ),
         ),
         BlocListener<CreateLockerBloc, CreateLockerState>(
           listener: (context, state) {
             if (state is CreateLockerSuccess) {
               context.read<GetLockersBloc>().add(GetLockers());
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                      'Le casier n°${locker.lockerNumber} a été ajouté avec succès !'),
+                  duration: const Duration(seconds: 3),
+                ),
+              );
             } else if (state is CreateLockerFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -79,56 +83,49 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                     Expanded(
                       child: Column(
                         children: [
-                          TextFormField(
+                          CEFFTextField(
+                            "N° de casier",
+                            const Icon(Icons.lock_rounded),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Veuillez remplir ce champ';
+                              } else {
+                                FocusScope.of(context).requestFocus(focusNbKey);
+                                return null;
                               }
-                              return null;
                             },
                             focusNode: focusLockerNumber,
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (v) {
-                              FocusScope.of(context).requestFocus(focusNbKey);
-                            },
+                            // onFieldSubmitted: (v) {
+                            //   FocusScope.of(context).requestFocus(focusNbKey);
+                            // },
                             controller: lockerNumberController,
-                            decoration: const InputDecoration(
-                              labelText: "N° de casier",
-                              prefixIcon: Icon(Icons.lock_outlined),
-                            ),
                             keyboardType: TextInputType.number,
                           ),
-                          TextFormField(
+                          CEFFTextField(
+                            "N° de serrure",
+                            const Icon(Icons.numbers_rounded),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Veuillez remplir ce champ';
+                              } else {
+                                FocusScope.of(context).requestFocus(focusJob);
+                                return null;
                               }
-                              return null;
                             },
                             focusNode: focusLockNumber,
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (v) {
-                              FocusScope.of(context).requestFocus(focusJob);
-                            },
                             controller: lockNumberController,
-                            decoration: const InputDecoration(
-                              labelText: "N° de serrure",
-                              prefixIcon: Icon(Icons.numbers_outlined),
-                            ),
                             keyboardType: TextInputType.number,
                           ),
-                          DropDownMenu(
-                            items: const {
+                          CEFFDropdownField(
+                            "Étage...",
+                            const {
                               "b": "Étage B",
                               "c": "Étage C",
                               "d": "Étage D",
                               "e": "Étage E",
                             },
-                            focus: focusFloor,
-                            nextFocus: focusRemark,
                             enabled: true,
-                            defaultItem: "Étage...",
-                            icon: Icons.calendar_today_outlined,
+                            icon: Icons.calendar_today_rounded,
                             onChanged: (value) {
                               setState(() {
                                 floorController.text = value!;
@@ -144,53 +141,42 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                     Expanded(
                       child: Column(
                         children: [
-                          TextFormField(
+                          CEFFTextField(
+                            "Nombre de clés",
+                            const Icon(Icons.key_rounded),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Veuillez remplir ce champ';
+                              } else {
+                                FocusScope.of(context)
+                                    .requestFocus(focusLockNumber);
+                                return null;
                               }
-                              return null;
                             },
                             focusNode: focusNbKey,
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (v) {
-                              FocusScope.of(context)
-                                  .requestFocus(focusLockNumber);
-                            },
                             controller: nbKeyController,
-                            decoration: const InputDecoration(
-                              labelText: "Nombre de clés",
-                              prefixIcon: Icon(Icons.key_outlined),
-                            ),
                             keyboardType: TextInputType.number,
                           ),
-                          TextFormField(
+                          CEFFTextField(
+                            "Métier",
+                            const Icon(Icons.work_rounded),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Veuillez remplir ce champ';
+                              } else {
+                                FocusScope.of(context).requestFocus(focusFloor);
+                                return null;
                               }
-                              return null;
                             },
                             focusNode: focusJob,
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (v) {
-                              FocusScope.of(context).requestFocus(focusFloor);
-                            },
                             controller: jobController,
-                            decoration: const InputDecoration(
-                              labelText: "Métier",
-                              prefixIcon: Icon(Icons.work_outlined),
-                            ),
                             keyboardType: TextInputType.name,
                           ),
-                          TextFormField(
+                          CEFFTextField(
+                            "Remarque (facultatif)",
+                            const Icon(Icons.note_rounded),
                             focusNode: focusRemark,
-                            textInputAction: TextInputAction.done,
                             controller: remarkController,
-                            decoration: const InputDecoration(
-                              labelText: "Remarque (facultatif)",
-                              prefixIcon: Icon(Icons.note_outlined),
-                            ),
                             keyboardType: TextInputType.name,
                           ),
                         ],
@@ -203,11 +189,8 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.black54),
-                    ),
+                  child: CEFFElevatedButton(
+                    "Ajouter",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         setState(() {
@@ -224,26 +207,8 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                         context
                             .read<CreateLockerBloc>()
                             .add(CreateLocker(locker));
-
-                        // Provider.of<LockerStudentProvider>(context, listen: false)
-                        //     .addLocker(locker);
-                        // Provider.of<HistoryProvider>(context, listen: false)
-                        //     .addHistory(History(
-                        //   date: DateTime.now().toString(),
-                        //   action: "add",
-                        //   locker: locker.toJson(),
-                        // ));
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                'Le casier n°${locker.lockerNumber} a été ajouté avec succès !'),
-                            duration: const Duration(seconds: 3),
-                          ),
-                        );
                       }
                     },
-                    child: const Text("Ajouter"),
                   ),
                 ),
               ],

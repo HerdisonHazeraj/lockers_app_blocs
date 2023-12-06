@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app_blocs/components/ceff_titlemenu_text.dart';
 
 class HistoricDashboardMenu extends StatefulWidget {
   const HistoricDashboardMenu({super.key});
@@ -63,16 +64,8 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                   children: [
                     Row(
                       children: [
-                        Text(
+                        const CEFFTitleMenuText(
                           "Historique",
-                          style: TextStyle(
-                            color: Theme.of(context)
-                                .textSelectionTheme
-                                .selectionColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            height: 1.3,
-                          ),
                         ),
                         Tooltip(
                           richMessage: WidgetSpan(

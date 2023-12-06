@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locker_repository/user_repository.dart';
 import 'package:lockers_app_blocs/blocs/locker/get_lockers_bloc/get_lockers_bloc.dart';
 import 'package:lockers_app_blocs/blocs/locker/update_locker_bloc/update_locker_bloc.dart';
+import 'package:lockers_app_blocs/components/ceff_dropdown_field.dart';
 import 'package:lockers_app_blocs/components/ceff_elevated_button.dart';
-import 'package:lockers_app_blocs/screens/core/widgets/drop_down_menu.dart';
+import 'package:lockers_app_blocs/components/ceff_text_field.dart';
 
 class LockerUpdate extends StatefulWidget {
   const LockerUpdate(
@@ -67,6 +68,12 @@ class _LockerUpdateState extends State<LockerUpdate> {
                 duration: const Duration(seconds: 3),
               ),
             );
+          } else if (state is UpdateLockerFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
           }
         },
         child: Form(
@@ -80,7 +87,9 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: CEFFTextField(
+                        "N° de casier",
+                        const Icon(Icons.lock_rounded),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Veuillez remplir ce champ';
@@ -90,10 +99,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         readOnly: true,
                         enabled: !widget.locker.isInaccessible!,
                         controller: lockerNumberController,
-                        decoration: const InputDecoration(
-                          labelText: "N° de casier",
-                          prefixIcon: Icon(Icons.lock_outlined),
-                        ),
                         keyboardType: TextInputType.number,
                       ),
                     ),
@@ -101,7 +106,9 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: CEFFTextField(
+                        "N° de serrure",
+                        const Icon(Icons.numbers_rounded),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Veuillez remplir ce champ';
@@ -111,10 +118,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         readOnly: true,
                         enabled: !widget.locker.isInaccessible!,
                         controller: lockNumberController,
-                        decoration: const InputDecoration(
-                          labelText: "N° de serrure",
-                          prefixIcon: Icon(Icons.numbers_outlined),
-                        ),
                         keyboardType: TextInputType.number,
                       ),
                     ),
@@ -122,22 +125,22 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: DropDownMenu(
-                        items: const {
+                      child: CEFFDropdownField(
+                        "Étage...",
+                        const {
                           "b": "Étage B",
                           "c": "Étage C",
                           "d": "Étage D",
                           "e": "Étage E",
                         },
+                        choosedItem: floorController.text,
                         enabled: !widget.locker.isInaccessible!,
-                        defaultItem: "Étage...",
-                        icon: Icons.location_on_outlined,
+                        icon: Icons.location_on_rounded,
                         onChanged: (value) {
                           setState(() {
                             floorController.text = value!;
                           });
                         },
-                        defaultChoosedItem: floorController.text,
                       ),
                     ),
                   ),
@@ -148,7 +151,9 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: CEFFTextField(
+                        "Nombre de clés",
+                        const Icon(Icons.key_rounded),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Veuillez remplir ce champ';
@@ -157,10 +162,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         },
                         enabled: !widget.locker.isInaccessible!,
                         controller: nbKeyController,
-                        decoration: const InputDecoration(
-                          labelText: "Nombre de clés",
-                          prefixIcon: Icon(Icons.key_outlined),
-                        ),
                         keyboardType: TextInputType.number,
                       ),
                     ),
@@ -168,7 +169,9 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: CEFFTextField(
+                        "Métier",
+                        const Icon(Icons.work_rounded),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Veuillez remplir ce champ';
@@ -177,10 +180,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         },
                         enabled: !widget.locker.isInaccessible!,
                         controller: jobController,
-                        decoration: const InputDecoration(
-                          labelText: "Métier",
-                          prefixIcon: Icon(Icons.work_outlined),
-                        ),
                         keyboardType: TextInputType.name,
                       ),
                     ),
@@ -188,13 +187,11 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: CEFFTextField(
+                        "Remarque",
+                        const Icon(Icons.note_rounded),
                         enabled: !widget.locker.isInaccessible!,
                         controller: remarkController,
-                        decoration: const InputDecoration(
-                          labelText: "Remarque (facultatif)",
-                          prefixIcon: Icon(Icons.note_outlined),
-                        ),
                         keyboardType: TextInputType.name,
                       ),
                     ),
@@ -264,7 +261,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                           enableInteractiveSelection: false,
                           decoration: InputDecoration(
                             // hintText: "${student.firstName} ${student.lastName}",
-                            prefixIcon: Icon(Icons.people_alt_outlined),
+                            prefixIcon: Icon(Icons.people_alt_rounded),
                           ),
                         ),
                       ),
@@ -277,7 +274,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                           enableInteractiveSelection: false,
                           decoration: InputDecoration(
                             // hintText: student.job,
-                            prefixIcon: const Icon(Icons.work_outlined),
+                            prefixIcon: const Icon(Icons.work_rounded),
                           ),
                         ),
                       ),
@@ -291,7 +288,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                           decoration: InputDecoration(
                             // hintText: "Caution de ${student.caution} CHF",
                             prefixIcon:
-                                const Icon(Icons.monetization_on_outlined),
+                                const Icon(Icons.monetization_on_rounded),
                           ),
                         ),
                       ),

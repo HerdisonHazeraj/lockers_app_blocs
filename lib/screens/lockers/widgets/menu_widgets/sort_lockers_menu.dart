@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lockers_app_blocs/screens/core/widgets/drop_down_menu.dart';
+import 'package:lockers_app_blocs/components/ceff_dropdown_field.dart';
 
 // ignore: must_be_immutable
 class SortLockersMenu extends StatefulWidget {
-  SortLockersMenu({
+  const SortLockersMenu({
     super.key,
   });
 
@@ -12,8 +12,6 @@ class SortLockersMenu extends StatefulWidget {
 }
 
 class _SortLockersMenuState extends State<SortLockersMenu> {
-//filtres afficher dans les select du filtre
-
   List selectednbrClefsFromMap = [];
   @override
   Widget build(BuildContext context) {
@@ -21,12 +19,13 @@ class _SortLockersMenuState extends State<SortLockersMenu> {
       margin: const EdgeInsets.only(bottom: 80.0, left: 10, top: 10.0),
       child: Wrap(
         children: [
-          DropDownMenu(
-              items: const {'0': '0', '1': '1', '2': '2', '3': '3', '4': '4'},
-              defaultItem: "Nombre de Clés...",
-              icon: Icons.key_outlined,
-              onChanged: (value) {},
-              enabled: true),
+          CEFFDropdownField(
+            "Nombre de Clés...",
+            const {'0': '0', '1': '1', '2': '2', '3': '3', '4': '4'},
+            icon: Icons.key_outlined,
+            onChanged: (value) {},
+            enabled: true,
+          ),
           Container(
             margin: const EdgeInsets.only(top: 20.0, left: 10.0),
             child: SizedBox(

@@ -19,4 +19,4 @@ Version 0.10.23
   - ./lib/blocs : Création des "Bloc" dont nous avons besoin pour gérer les états
     - ./lib/blocs/user : Gestion de l'authentification fonctionnel !
 
-  30.11.2023 : Mise en place de la page des casiers
+30.11.2023 : Mise en place de la page des casiers

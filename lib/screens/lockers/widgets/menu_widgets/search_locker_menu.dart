@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app_blocs/components/ceff_text_field.dart';
+import 'package:lockers_app_blocs/components/ceff_titlemenu_text.dart';
 
 class SearchLockerMenu extends StatefulWidget {
   const SearchLockerMenu({
@@ -15,25 +17,17 @@ class SearchLockerMenu extends StatefulWidget {
 class _SearchLockerMenuState extends State<SearchLockerMenu> {
   @override
   Widget build(BuildContext context) {
-    return ListBody(
+    return const ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
-          child: Text(
+          child: CEFFTitleMenuText(
             "Rechercher un casier",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black54,
-              fontWeight: FontWeight.w500,
-              height: 1.3,
-            ),
           ),
         ),
-        TextField(
-          decoration: const InputDecoration(
-            labelText: "Rechercher...",
-            prefixIcon: Icon(Icons.search_outlined),
-          ),
+        CEFFTextField(
+          "Rechercher...",
+          Icon(Icons.search_rounded),
           // onChanged: (value) => widget.searchLockers(value),
         ),
       ],
