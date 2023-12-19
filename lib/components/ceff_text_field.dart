@@ -4,22 +4,25 @@ class CEFFTextField extends StatelessWidget {
   const CEFFTextField(
     this.label,
     this.icon, {
+    this.onChanged,
+    this.onTap,
     this.enabled = true,
     this.readOnly = false,
     this.obscureText = false,
     this.suffixIcon,
-    this.onChanged,
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
     this.errorMsg,
     this.border,
+    this.focusNode,
     super.key,
   });
 
   final String label;
   final Icon icon;
   final String? Function(String?)? onChanged;
+  final Function()? onTap;
   final bool enabled;
   final bool readOnly;
   final bool obscureText;
@@ -29,15 +32,19 @@ class CEFFTextField extends StatelessWidget {
   final String? errorMsg;
   final TextInputType? keyboardType;
   final InputBorder? border;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
+      onTap: onTap,
       controller: controller,
       enabled: enabled,
       keyboardType: keyboardType,
       readOnly: readOnly,
       obscureText: obscureText,
+      focusNode: focusNode,
       decoration: InputDecoration(
         labelText: label,
         suffixIcon: suffixIcon,
@@ -46,7 +53,6 @@ class CEFFTextField extends StatelessWidget {
         errorText: errorMsg,
       ),
       validator: validator,
-      onChanged: onChanged,
     );
   }
 }

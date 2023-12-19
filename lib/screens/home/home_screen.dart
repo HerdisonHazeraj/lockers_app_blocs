@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locker_repository/user_repository.dart';
 import 'package:lockers_app_blocs/blocs/locker/get_lockers_bloc/get_lockers_bloc.dart';
 import 'package:lockers_app_blocs/blocs/user/my_user_bloc/my_user_bloc.dart';
-import 'package:lockers_app_blocs/screens/core/components/side_menu_app.dart';
+import 'package:lockers_app_blocs/components/side_menu_app.dart';
 import 'package:lockers_app_blocs/screens/dashboard/dashboard_screen.dart';
 import 'package:lockers_app_blocs/screens/loading_page.dart';
 import 'package:lockers_app_blocs/screens/lockers/lockers_screen.dart';
@@ -84,8 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                   },
                 ),
-                // const HistoricDashboardScreen(),
-                // const ImportAllScreen(),
               ],
             ),
           ),

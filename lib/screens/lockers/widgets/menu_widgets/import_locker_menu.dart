@@ -1,5 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app_blocs/components/ceff_elevated_button.dart';
+import 'package:lockers_app_blocs/components/ceff_text_field.dart';
+import 'package:lockers_app_blocs/components/ceff_titlemenu_text.dart';
 
 class ImportLockerMenu extends StatefulWidget {
   ImportLockerMenu({super.key});
@@ -21,14 +24,8 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
       children: [
         const SizedBox(
           width: double.infinity,
-          child: Text(
+          child: CEFFTitleMenuText(
             "Importer un fichier CSV",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black54,
-              fontWeight: FontWeight.w500,
-              height: 1.3,
-            ),
           ),
         ),
         Row(
@@ -36,12 +33,10 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-              child: TextField(
+              child: CEFFTextField(
+                "Choisir...",
+                const Icon(Icons.file_upload_rounded),
                 controller: fileController,
-                decoration: const InputDecoration(
-                  labelText: "Choisir...",
-                  prefixIcon: Icon(Icons.file_upload_outlined),
-                ),
                 readOnly: true,
                 onTap: () async {
                   filePicker = (await FilePicker.platform.pickFiles(
@@ -60,10 +55,8 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
               width: 38,
             ),
             Expanded(
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black54),
-                ),
+              child: CEFFElevatedButton(
+                "Importer",
                 onPressed: () async {
                   // final error = await Provider.of<LockerStudentProvider>(
                   //   context,
@@ -83,7 +76,6 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
                   //   fileController.clear();
                   // }
                 },
-                child: const Text("Importer"),
               ),
             ),
           ],
