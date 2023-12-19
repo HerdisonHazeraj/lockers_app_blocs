@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:locker_repository/user_repository.dart';
+import 'package:locker_repository/locker_repository.dart';
 
 part 'get_lockers_event.dart';
 part 'get_lockers_state.dart';

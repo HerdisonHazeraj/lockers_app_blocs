@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locker_repository/user_repository.dart';
+import 'package:locker_repository/locker_repository.dart';
 import 'dart:developer' as dev;
 import 'package:uuid/uuid.dart';
 

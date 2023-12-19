@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:locker_repository/user_repository.dart';
+import 'package:locker_repository/locker_repository.dart';
 import 'package:lockers_app_blocs/blocs/locker/create_locker_bloc/create_locker_bloc.dart';
 import 'package:lockers_app_blocs/blocs/locker/get_lockers_bloc/get_lockers_bloc.dart';
-import 'package:lockers_app_blocs/components/divider_menu.dart';
+import 'package:lockers_app_blocs/components/ceff_divider.dart';
 import 'package:lockers_app_blocs/screens/lockers/widgets/menu_widgets/add_locker_menu.dart';
 import 'package:lockers_app_blocs/screens/lockers/widgets/menu_widgets/import_locker_menu.dart';
 import 'package:lockers_app_blocs/screens/lockers/widgets/menu_widgets/search_locker_menu.dart';
@@ -51,7 +51,7 @@ class _LockersMenuState extends State<LockersMenu> {
                 const SearchLockerMenu(
                     // searchLockers: (value) => widget.searchLockers(value),
                     ),
-                const dividerMenu(),
+                const CEFFDivider(),
                 BlocProvider(
                   create: (context) => CreateLockerBloc(
                     lockerRepository:
@@ -59,7 +59,7 @@ class _LockersMenuState extends State<LockersMenu> {
                   ),
                   child: const AddLockerMenu(),
                 ),
-                const dividerMenu(),
+                const CEFFDivider(),
                 ImportLockerMenu(),
               ],
             ),

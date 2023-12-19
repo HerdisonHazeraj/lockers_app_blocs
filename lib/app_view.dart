@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lockers_app_blocs/blocs/locker/get_lockers_bloc/get_lockers_bloc.dart';
+import 'package:lockers_app_blocs/blocs/student/get_students_bloc/get_students_bloc.dart';
 import 'package:lockers_app_blocs/blocs/user/authentication_bloc/authentication_bloc.dart';
 import 'package:lockers_app_blocs/blocs/user/my_user_bloc/my_user_bloc.dart';
 import 'package:lockers_app_blocs/blocs/user/sign_in_bloc/sign_in_bloc.dart';
@@ -51,6 +52,12 @@ class _AppViewState extends State<AppView> {
                     myLockerRepository:
                         context.read<GetLockersBloc>().lockerRepository,
                   )..add(GetLockers()),
+                ),
+                BlocProvider(
+                  create: (context) => GetStudentsBloc(
+                    myStudentRepository:
+                        context.read<GetStudentsBloc>().studentRepository,
+                  )..add(GetStudents()),
                 ),
               ],
               child: const HomeScreen(),

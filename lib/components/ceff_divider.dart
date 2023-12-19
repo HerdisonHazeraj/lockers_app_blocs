@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class dividerMenu extends StatelessWidget {
-  const dividerMenu({
+class CEFFDivider extends StatelessWidget {
+  const CEFFDivider({
     super.key,
   });
 
