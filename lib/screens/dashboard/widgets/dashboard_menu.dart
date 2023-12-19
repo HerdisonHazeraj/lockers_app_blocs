@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:lockers_app_blocs/components/divider_menu.dart';
+import 'package:lockers_app_blocs/components/ceff_divider.dart';
 import 'package:lockers_app_blocs/screens/dashboard/widgets/menu/historic_dashboard_menu.dart';
 import 'package:lockers_app_blocs/screens/dashboard/widgets/menu/import_all_menu.dart';
 
@@ -38,7 +38,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
         child: Column(
           children: [
             const HistoricDashboardMenu(),
-            const dividerMenu(),
+            const CEFFDivider(),
             ImportAllMenu(),
           ],
         ),

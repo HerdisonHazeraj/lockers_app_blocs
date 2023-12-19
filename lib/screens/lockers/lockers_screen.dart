@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:locker_repository/user_repository.dart';
+import 'package:locker_repository/locker_repository.dart';
 import 'package:lockers_app_blocs/blocs/locker/delete_locker_bloc/delete_locker_bloc.dart';
 import 'package:lockers_app_blocs/blocs/locker/get_lockers_bloc/get_lockers_bloc.dart';
 import 'package:lockers_app_blocs/blocs/locker/update_locker_bloc/update_locker_bloc.dart';
@@ -26,6 +26,7 @@ class LockersScreen extends StatefulWidget {
 
 class _LockersScreenState extends State<LockersScreen> {
   late List<bool> isExpFloor;
+  ScrollController scrollController = ScrollController();
 
   @override
   void didChangeDependencies() {
@@ -118,7 +119,6 @@ class _LockersScreenState extends State<LockersScreen> {
                                                   ),
                                                 );
                                               },
-
                                               body: l.isUpdating == true
                                                   ? BlocProvider(
                                                       create: (context) =>

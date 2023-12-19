@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:locker_repository/user_repository.dart';
+import 'package:locker_repository/locker_repository.dart';
 import 'package:lockers_app_blocs/blocs/locker/create_locker_bloc/create_locker_bloc.dart';
 import 'package:lockers_app_blocs/blocs/locker/get_lockers_bloc/get_lockers_bloc.dart';
 import 'package:lockers_app_blocs/components/ceff_dropdown_field.dart';
@@ -193,16 +193,14 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                     "Ajouter",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          locker.lockNumber =
-                              int.parse(lockNumberController.text);
-                          locker.lockerNumber =
-                              int.parse(lockerNumberController.text);
-                          locker.nbKey = int.parse(nbKeyController.text);
-                          locker.floor = floorController.text;
-                          locker.job = jobController.text;
-                          locker.remark = remarkController.text;
-                        });
+                        locker.lockNumber =
+                            int.parse(lockNumberController.text);
+                        locker.lockerNumber =
+                            int.parse(lockerNumberController.text);
+                        locker.nbKey = int.parse(nbKeyController.text);
+                        locker.floor = floorController.text;
+                        locker.job = jobController.text;
+                        locker.remark = remarkController.text;
 
                         context
                             .read<CreateLockerBloc>()

@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
-import '../entities/locker_entity.dart';
-import 'ilocker.dart';
-
+import 'package:locker_repository/src/models/ilocker.dart';
+import 'package:locker_repository/locker_repository.dart';
 
 class Locker extends ILocker with EquatableMixin {
   String? id;

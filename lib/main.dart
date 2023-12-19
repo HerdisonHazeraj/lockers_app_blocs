@@ -2,10 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:locker_repository/user_repository.dart';
+import 'package:locker_repository/locker_repository.dart';
 import 'package:lockers_app_blocs/app.dart';
 import 'package:lockers_app_blocs/firebase_options.dart';
 import 'package:lockers_app_blocs/simple_bloc_observer.dart';
+import 'package:student_repository/student_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 void main() async {
@@ -17,5 +18,6 @@ void main() async {
   runApp(MainApp(
     FirebaseUserRepository(),
     FirebaseLockerRepository(),
+    FirebaseStudentRepository(),
   ));
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lockers_app_blocs/screens/dashboard/dashboard_screen.dart';
 import 'package:lockers_app_blocs/screens/lockers/lockers_screen.dart';
+import 'package:lockers_app_blocs/screens/students/students_screen.dart';
 
 class SideMenuApp extends StatefulWidget {
   const SideMenuApp({
@@ -181,62 +182,62 @@ class _SideMenuAppState extends State<SideMenuApp> {
             widget.sideMenuController.changePage(page);
           },
         ),
-        // SideMenuItem(
-        //   priority: StudentsOverviewScreen.pageIndex,
-        //   builder: (context, displayMode) {
-        //     return Row(
-        //       children: [
-        //         Padding(
-        //           padding: const EdgeInsets.only(left: 8),
-        //           child: SvgPicture.asset(
-        //             "assets/icons/student.svg",
-        //             height: 24,
-        //             color: Theme.of(context).iconTheme.color,
-        //           ),
-        //         ),
-        //         Padding(
-        //           padding: const EdgeInsets.only(left: 8),
-        //           child: Text(
-        //             'Élèves',
-        //             style: TextStyle(
-        //                 color:
-        //                     Theme.of(context).textSelectionTheme.selectionColor,
-        //                 fontSize: 16),
-        //           ),
-        //         ),
-        //       ],
-        //     );
-        //   },
-        //   trailing: Provider.of<LockerStudentProvider>(context)
-        //           .getNonPaidCaution()
-        //           .isNotEmpty
-        //       ? Tooltip(
-        //           message:
-        //               "Vous avez ${Provider.of<LockerStudentProvider>(context).getNonPaidCaution().length} cautions à récupérer",
-        //           child: Container(
-        //               decoration: const BoxDecoration(
-        //                   color: Colors.amber,
-        //                   borderRadius: BorderRadius.all(Radius.circular(6))),
-        //               child: Padding(
-        //                 padding: const EdgeInsets.symmetric(
-        //                     horizontal: 6.0, vertical: 3),
-        //                 child: Text(
-        //                   Provider.of<LockerStudentProvider>(context)
-        //                       .getNonPaidCaution()
-        //                       .length
-        //                       .toString(),
-        //                   style: TextStyle(
-        //                     fontSize: 11,
-        //                     color: Colors.grey[800],
-        //                   ),
-        //                 ),
-        //               )),
-        //         )
-        //       : const Text(''),
-        //   onTap: (page, _) {
-        //     widget.sideMenuController.changePage(page);
-        //   },
-        // ),
+        SideMenuItem(
+          priority: StudentsScreen.pageIndex,
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/student.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Élèves',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
+          },
+          // trailing: Provider.of<LockerStudentProvider>(context)
+          //         .getNonPaidCaution()
+          //         .isNotEmpty
+          //     ? Tooltip(
+          //         message:
+          //             "Vous avez ${Provider.of<LockerStudentProvider>(context).getNonPaidCaution().length} cautions à récupérer",
+          //         child: Container(
+          //             decoration: const BoxDecoration(
+          //                 color: Colors.amber,
+          //                 borderRadius: BorderRadius.all(Radius.circular(6))),
+          //             child: Padding(
+          //               padding: const EdgeInsets.symmetric(
+          //                   horizontal: 6.0, vertical: 3),
+          //               child: Text(
+          //                 Provider.of<LockerStudentProvider>(context)
+          //                     .getNonPaidCaution()
+          //                     .length
+          //                     .toString(),
+          //                 style: TextStyle(
+          //                   fontSize: 11,
+          //                   color: Colors.grey[800],
+          //                 ),
+          //               ),
+          //             )),
+          //       )
+          //     : const Text(''),
+          onTap: (page, _) {
+            widget.sideMenuController.changePage(page);
+          },
+        ),
         // SideMenuItem(
         //   priority: AssignationOverviewScreen.pageIndex,
         //   builder: (context, displayMode) {
