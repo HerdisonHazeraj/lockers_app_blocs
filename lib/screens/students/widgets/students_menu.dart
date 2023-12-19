@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lockers_app_blocs/blocs/student/create_student_bloc/create_student_bloc.dart';
+import 'package:lockers_app_blocs/blocs/student/get_students_bloc/get_students_bloc.dart';
 import 'package:lockers_app_blocs/components/ceff_divider.dart';
 import 'package:lockers_app_blocs/screens/students/widgets/menu_widgets/add_student_menu.dart';
 import 'package:lockers_app_blocs/screens/students/widgets/menu_widgets/import_student_menu.dart';
@@ -48,7 +51,13 @@ class _StudentsMenuState extends State<StudentsMenu> {
                     ),
                 const CEFFDivider(),
                 // Form to add a student
-                const AddStudentMenu(),
+                BlocProvider(
+                  create: (context) => CreateStudentBloc(
+                    studentRepository:
+                        context.read<GetStudentsBloc>().studentRepository,
+                  ),
+                  child: const AddStudentMenu(),
+                ),
                 const CEFFDivider(),
                 // Form to import students
                 ImportStudentMenu(),

@@ -11,7 +11,6 @@ import 'package:lockers_app_blocs/screens/loading_page.dart';
 import 'package:lockers_app_blocs/screens/lockers/lockers_screen.dart';
 import 'package:lockers_app_blocs/screens/students/students_screen.dart';
 import 'package:student_repository/student_repository.dart';
-import 'dart:developer' as dev;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

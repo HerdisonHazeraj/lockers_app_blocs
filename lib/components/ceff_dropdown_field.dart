@@ -51,7 +51,7 @@ class CEFFDropdownField extends StatelessWidget {
         Icons.arrow_drop_down_outlined,
         color: Colors.black54,
       ),
-      onChanged: enabled ? (value) => onChanged : null,
+      onChanged: enabled ? onChanged : null,
     );
   }
 }

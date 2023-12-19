@@ -193,16 +193,14 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                     "Ajouter",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          locker.lockNumber =
-                              int.parse(lockNumberController.text);
-                          locker.lockerNumber =
-                              int.parse(lockerNumberController.text);
-                          locker.nbKey = int.parse(nbKeyController.text);
-                          locker.floor = floorController.text;
-                          locker.job = jobController.text;
-                          locker.remark = remarkController.text;
-                        });
+                        locker.lockNumber =
+                            int.parse(lockNumberController.text);
+                        locker.lockerNumber =
+                            int.parse(lockerNumberController.text);
+                        locker.nbKey = int.parse(nbKeyController.text);
+                        locker.floor = floorController.text;
+                        locker.job = jobController.text;
+                        locker.remark = remarkController.text;
 
                         context
                             .read<CreateLockerBloc>()

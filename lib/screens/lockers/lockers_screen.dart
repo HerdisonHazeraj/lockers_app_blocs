@@ -119,7 +119,6 @@ class _LockersScreenState extends State<LockersScreen> {
                                                   ),
                                                 );
                                               },
-
                                               body: l.isUpdating == true
                                                   ? BlocProvider(
                                                       create: (context) =>
