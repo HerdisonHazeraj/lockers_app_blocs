@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lockers_app_blocs/blocs/student/get_students_bloc/get_students_bloc.dart';
+import 'package:lockers_app_blocs/blocs/student/update_student_bloc/update_student_bloc.dart';
+import 'package:lockers_app_blocs/components/ceff_dropdown_field.dart';
+import 'package:lockers_app_blocs/components/ceff_elevated_button.dart';
+import 'package:lockers_app_blocs/components/ceff_text_field.dart';
 import 'package:student_repository/student_repository.dart';
-
-import 'menu_widgets/drop_down_menu.dart';
 
 class StudentUpdate extends StatefulWidget {
   const StudentUpdate({
@@ -60,300 +64,281 @@ class _StudentUpdateState extends State<StudentUpdate> {
         right: 100,
         bottom: 20,
       ),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                      enabled: !widget.student.isArchived!,
-                      controller: firstnameController,
-                      decoration: const InputDecoration(
-                        labelText: "Prénom",
-                        prefixIcon: Icon(Icons.person_outlined),
+      child: BlocListener<UpdateStudentBloc, UpdateStudentState>(
+        listener: (context, state) {
+          if (state is UpdateStudentSuccess) {
+            context.read<GetStudentsBloc>().add(GetStudents());
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                    "L'étudiant ${widget.student.firstName} ${widget.student.lastName} a été modifié avec succès !"),
+                duration: const Duration(seconds: 3),
+              ),
+            );
+          } else if (state is UpdateStudentFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+          }
+        },
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFTextField(
+                        "Prénom",
+                        const Icon(Icons.person_2_rounded),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
+                        enabled: !widget.student.isArchived!,
+                        controller: firstnameController,
+                        keyboardType: TextInputType.name,
                       ),
-                      keyboardType: TextInputType.name,
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                      enabled: !widget.student.isArchived!,
-                      controller: lastnameController,
-                      decoration: const InputDecoration(
-                        labelText: "Nom",
-                        prefixIcon: Icon(Icons.person_outlined),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFTextField(
+                        "Nom",
+                        const Icon(Icons.person_rounded),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
+                        enabled: !widget.student.isArchived!,
+                        controller: lastnameController,
+                        keyboardType: TextInputType.name,
                       ),
-                      keyboardType: TextInputType.name,
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                      enabled: !widget.student.isArchived!,
-                      controller: loginController,
-                      decoration: const InputDecoration(
-                        labelText: "Login",
-                        prefixIcon: Icon(Icons.login_outlined),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFTextField(
+                        "Login",
+                        const Icon(Icons.login_rounded),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
+                        enabled: !widget.student.isArchived!,
+                        controller: loginController,
+                        keyboardType: TextInputType.name,
                       ),
-                      keyboardType: TextInputType.name,
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (v) {
-                        FocusScope.of(context).requestFocus(focusClasse);
-                      },
-                      enabled: !widget.student.isArchived!,
-                      controller: mailController,
-                      decoration: const InputDecoration(
-                        labelText: "Mail",
-                        prefixIcon: Icon(Icons.mail_outlined),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFTextField(
+                        "Mail",
+                        const Icon(Icons.mail_rounded),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
+                        enabled: !widget.student.isArchived!,
+                        controller: mailController,
+                        keyboardType: TextInputType.emailAddress,
                       ),
-                      keyboardType: TextInputType.emailAddress,
                     ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: TextFormField(
-                      focusNode: focusClasse,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                      enabled: !widget.student.isArchived!,
-                      controller: classeController,
-                      decoration: const InputDecoration(
-                        labelText: "Classe",
-                        prefixIcon: Icon(Icons.school_outlined),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFTextField(
+                        "Classe",
+                        const Icon(Icons.school_rounded),
+                        focusNode: focusClasse,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
+                        enabled: !widget.student.isArchived!,
+                        controller: classeController,
+                        keyboardType: TextInputType.name,
                       ),
-                      keyboardType: TextInputType.name,
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: DropDownMenu(
-                      items: const {
-                        "1": "1ère année",
-                        "2": "2ème année",
-                        "3": "3ème année",
-                        "4": "4ème année",
-                      },
-                      enabled: !widget.student.isArchived!,
-                      defaultItem: "Année...",
-                      icon: Icons.calendar_today_outlined,
-                      onChanged: (value) {
-                        setState(() {
-                          yearController.text = value!;
-                        });
-                      },
-                      defaultChoosedItem: yearController.text,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                      enabled: !widget.student.isArchived!,
-                      controller: jobController,
-                      decoration: const InputDecoration(
-                        labelText: "Formation",
-                        prefixIcon: Icon(Icons.work_outlined),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFDropdownField(
+                        "Année...",
+                        const {
+                          "1": "1ère année",
+                          "2": "2ème année",
+                          "3": "3ème année",
+                          "4": "4ème année",
+                        },
+                        enabled: !widget.student.isArchived!,
+                        icon: Icons.calendar_today_outlined,
+                        onChanged: (value) {
+                          setState(() {
+                            yearController.text = value!;
+                          });
+                        },
+                        choosedItem: yearController.text,
                       ),
-                      keyboardType: TextInputType.name,
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.done,
-                      enabled: !widget.student.isArchived!,
-                      controller: responsableController,
-                      decoration: const InputDecoration(
-                        labelText: "Maître de classe",
-                        prefixIcon: Icon(Icons.admin_panel_settings_outlined),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFTextField(
+                        "Formation",
+                        const Icon(Icons.work_rounded),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
+                        enabled: !widget.student.isArchived!,
+                        controller: jobController,
+                        keyboardType: TextInputType.name,
                       ),
-                      keyboardType: TextInputType.name,
                     ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: ElevatedButton(
-                      onPressed: widget.student.isArchived!
-                          ? null
-                          : () {
-                              widget.showUpdateForm!();
-                            },
-                      child: const Text("Annuler"),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFTextField(
+                        "Maître de classe",
+                        const Icon(Icons.admin_panel_settings_rounded),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez remplir ce champ';
+                          }
+                          return null;
+                        },
+                        enabled: !widget.student.isArchived!,
+                        controller: responsableController,
+                        keyboardType: TextInputType.name,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: ElevatedButton(
-                      onPressed: widget.student.isArchived!
-                          ? null
-                          : () async {
-                              if (_formKey.currentState!.validate()) {
-                                // Student student =
-                                //     Provider.of<LockerStudentProvider>(context,
-                                //             listen: false)
-                                //         .getStudent(widget.student.id!);
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFElevatedButton(
+                        "Annuler",
+                        onPressed: widget.student.isArchived!
+                            ? null
+                            : () {
+                                widget.showUpdateForm!();
+                              },
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CEFFElevatedButton(
+                        "Enregistrer",
+                        onPressed: widget.student.isArchived!
+                            ? null
+                            : () async {
+                                if (_formKey.currentState!.validate()) {
+                                  Student student = widget.student.copyWith(
+                                    firstName: firstnameController.text,
+                                    lastName: lastnameController.text,
+                                    login: loginController.text,
+                                    job: jobController.text,
+                                    classe: classeController.text,
+                                    responsable: responsableController.text,
+                                    year: int.parse(yearController.text),
+                                  );
 
-                                // await Provider.of<LockerStudentProvider>(
-                                //         context,
-                                //         listen: false)
-                                //     .updateStudent(student.copyWith(
-                                //   firstName: firstnameController.text,
-                                //   lastName: lastnameController.text,
-                                //   login: loginController.text,
-                                //   job: jobController.text,
-                                //   classe: classeController.text,
-                                //   responsable: responsableController.text,
-                                //   year: int.parse(yearController.text),
-                                // ));
-
-                                // widget.updateSearchStudentList!();
-
-                                // widget.showUpdateForm!();
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //   SnackBar(
-                                //     content: Text(
-                                //         "L'étudiant ${student.firstName} ${student.lastName} a été modifié avec succès !"),
-                                //     duration: const Duration(seconds: 3),
-                                //   ),
-                                // );
-                              }
-                            },
-                      child: const Text("Enregistrer"),
+                                  context
+                                      .read<UpdateStudentBloc>()
+                                      .add(UpdateStudent(student));
+                                }
+                              },
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const Divider(),
-            // if (widget.student.lockerNumber != 0)
-            //   Row(
-            //     children: [
-            //       Expanded(
-            //         child: Padding(
-            //           padding: const EdgeInsets.all(20),
-            //           child: TextField(
-            //             readOnly: true,
-            //             enableInteractiveSelection: false,
-            //             decoration: InputDecoration(
-            //               hintText:
-            //                   "Casier n°${locker.lockerNumber.toString()}",
-            //               prefixIcon:
-            //                   const Icon(Icons.admin_panel_settings_outlined),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       Expanded(
-            //         child: Padding(
-            //           padding: const EdgeInsets.all(20),
-            //           child: TextField(
-            //             readOnly: true,
-            //             enableInteractiveSelection: false,
-            //             decoration: InputDecoration(
-            //               hintText: "Étage ${locker.floor.toUpperCase()}",
-            //               prefixIcon: const Icon(Icons.location_on_outlined),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       Expanded(
-            //         child: Padding(
-            //           padding: const EdgeInsets.all(20),
-            //           child: TextField(
-            //             readOnly: true,
-            //             enableInteractiveSelection: false,
-            //             decoration: InputDecoration(
-            //               hintText: "${locker.nbKey.toString()} clés",
-            //               prefixIcon: const Icon(Icons.vpn_key_outlined),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   )
-          ],
+                ],
+              ),
+              const Divider(),
+              // if (widget.student.lockerNumber != 0)
+              //   Row(
+              //     children: [
+              //       Expanded(
+              //         child: Padding(
+              //           padding: const EdgeInsets.all(20),
+              //           child: TextField(
+              //             readOnly: true,
+              //             enableInteractiveSelection: false,
+              //             decoration: InputDecoration(
+              //               hintText:
+              //                   "Casier n°${locker.lockerNumber.toString()}",
+              //               prefixIcon:
+              //                   const Icon(Icons.admin_panel_settings_outlined),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: Padding(
+              //           padding: const EdgeInsets.all(20),
+              //           child: TextField(
+              //             readOnly: true,
+              //             enableInteractiveSelection: false,
+              //             decoration: InputDecoration(
+              //               hintText: "Étage ${locker.floor.toUpperCase()}",
+              //               prefixIcon: const Icon(Icons.location_on_outlined),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: Padding(
+              //           padding: const EdgeInsets.all(20),
+              //           child: TextField(
+              //             readOnly: true,
+              //             enableInteractiveSelection: false,
+              //             decoration: InputDecoration(
+              //               hintText: "${locker.nbKey.toString()} clés",
+              //               prefixIcon: const Icon(Icons.vpn_key_outlined),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   )
+            ],
+          ),
         ),
       ),
     );

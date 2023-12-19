@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lockers_app_blocs/blocs/student/delete_student_bloc/delete_student_bloc.dart';
 import 'package:lockers_app_blocs/blocs/student/get_students_bloc/get_students_bloc.dart';
+import 'package:lockers_app_blocs/blocs/student/update_student_bloc/update_student_bloc.dart';
 import 'package:lockers_app_blocs/responsive.dart';
 import 'package:lockers_app_blocs/screens/students/widgets/student_item.dart';
 import 'package:lockers_app_blocs/screens/students/widgets/student_update.dart';
@@ -112,14 +113,22 @@ class _StudentsScreenState extends State<StudentsScreen> {
                                         );
                                       },
                                       body: s.isUpdating == true
-                                          ? StudentUpdate(
-                                              student: s,
-                                              showUpdateForm: () =>
-                                                  setState(() {
-                                                s.isUpdating = !s.isUpdating;
-                                              }),
-                                              // updateSearchStudentList: () =>
-                                              //     refreshList(),
+                                          ? BlocProvider(
+                                              create: (context) =>
+                                                  UpdateStudentBloc(
+                                                studentRepository: context
+                                                    .read<GetStudentsBloc>()
+                                                    .studentRepository,
+                                              ),
+                                              child: StudentUpdate(
+                                                student: s,
+                                                showUpdateForm: () => setState(
+                                                  () {
+                                                    s.isUpdating =
+                                                        !s.isUpdating;
+                                                  },
+                                                ),
+                                              ),
                                             )
                                           : const SizedBox(),
                                     ),
