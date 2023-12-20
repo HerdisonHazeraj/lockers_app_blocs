@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lockers_app_blocs/blocs/student/delete_student_bloc/delete_student_bloc.dart';
 import 'package:lockers_app_blocs/config.dart';
 import 'package:student_repository/student_repository.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../responsive.dart';
 
 class StudentItem extends StatefulWidget {
@@ -284,14 +287,14 @@ class _StudentItemState extends State<StudentItem> {
                               ),
                         IconButton(
                           onPressed: () async {
-                            // String email = Uri.encodeComponent(
-                            //     "${widget.student.firstName.replaceAll(' ', '')}.${widget.student.lastName.replaceAll(' ', '')}@ceff.ch");
-                            // String subject = Uri.encodeComponent(
-                            //     "Rappel de votre casier n°${widget.student.lockerNumber}");
-                            // String body = Uri.encodeComponent("");
-                            // Uri mail = Uri.parse(
-                            //     "mailto:$email?subject=$subject&body=$body");
-                            // await launchUrl(mail);
+                            String email = Uri.encodeComponent(
+                                "${widget.student.firstName.replaceAll(' ', '')}.${widget.student.lastName.replaceAll(' ', '')}@ceff.ch");
+                            String subject = Uri.encodeComponent(
+                                "Rappel de votre casier n°${widget.student.lockerNumber}");
+                            String body = Uri.encodeComponent("");
+                            Uri mail = Uri.parse(
+                                "mailto:$email?subject=$subject&body=$body");
+                            await launchUrl(mail);
                           },
                           tooltip: "Envoyer un mail à l'élève",
                           icon: Icon(
@@ -300,44 +303,16 @@ class _StudentItemState extends State<StudentItem> {
                           ),
                         ),
                         IconButton(
+                          onPressed: () async {
+                            context
+                                .read<DeleteStudentBloc>()
+                                .add(DeleteStudent(widget.student));
+                          },
                           icon: const Icon(
                             Icons.delete_outlined,
                             color: Colors.red,
                           ),
                           tooltip: "Supprimer l'élève",
-                          onPressed: () async {
-                            // Suppression avec une boite de dialogue qui permet de confirmer
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text("Supprimer un élève"),
-                                    content: const Text(
-                                        "Voulez-vous vraiment supprimer cet élève ?"),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text("Annuler"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () async {
-                                          // await Provider.of<
-                                          //             LockerStudentProvider>(
-                                          //         context,
-                                          //         listen: false)
-                                          //     .deleteStudent(
-                                          //         widget.student.id!);
-                                          // Navigator.of(context).pop();
-                                          // widget.refreshList!();
-                                        },
-                                        child: const Text("Confirmer"),
-                                      ),
-                                    ],
-                                  );
-                                });
-                          },
                         ),
                       ],
                     ),

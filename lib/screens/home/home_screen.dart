@@ -45,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: PageView(
               controller: pageController,
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 BlocBuilder<MyUserBloc, MyUserState>(
                   builder: (context, state) {
